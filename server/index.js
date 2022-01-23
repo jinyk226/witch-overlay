@@ -9,7 +9,7 @@ app.use(express.static(path.join(__dirname, '../public')))
 
 app.use('/api', require('./api'))
 
-app.use((req, res, next, error) => {
+app.use((err, req, res, next) => {
   res.status(err.status || 500).send(err.message || 'Internal server error')
 })
 

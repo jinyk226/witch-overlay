@@ -1,0 +1,18 @@
+/* html, body {
+  background: #111
+} */
+
+* {
+  box-sizing:border-box;
+}
+
+div {
+  /* background: #EEE; */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border: solid 6px #AAA;
+  border-radius: 10px;
+  width: 1920px;
+  min-height: 300px;
+}
