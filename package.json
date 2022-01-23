@@ -2,9 +2,12 @@
   "name": "youtube-overlay",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start-server": "nodemon main.js -e html,js,css --ignore public",
+    "build": "webpack",
+    "build-watch": "webpack -w",
+    "start": "npm run build-watch & npm run start-server"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +22,12 @@
     "nodemon": "^2.0.15",
     "style-loader": "^3.3.1",
     "webpack": "^5.67.0",
+    "webpack-cli": "^4.9.1",
     "webpack-dev-server": "^4.7.3"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "express": "^4.17.2",
+    "googleapis": "^92.0.0"
   }
 }
