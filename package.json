@@ -26,7 +26,9 @@
     "webpack-dev-server": "^4.7.3"
   },
   "dependencies": {
+    "axios": "^0.25.0",
     "chalk": "^4.1.2",
+    "dotenv": "^14.2.0",
     "express": "^4.17.2",
     "googleapis": "^92.0.0"
   }

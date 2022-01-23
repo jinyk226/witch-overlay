@@ -13,3 +13,6 @@ npm-debug.log
 
 # env
 .env
+
+# json tokens
+tokens.json
