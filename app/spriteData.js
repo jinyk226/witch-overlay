@@ -24,7 +24,6 @@ class Sprite {
   }
 
   randomState = (spriteSheet) => {
-    console.log('RANDOM STATE IS RUNNING')
     this.xVel = Math.floor(Math.random() * 3) - 1
     if (this.xVel > 0)     {
       this.direction = 'right'
@@ -38,7 +37,6 @@ class Sprite {
       this.direction = 'left'
       this.state = 'run'
     }
-    console.log("xVel:", this.xVel, "for ID:", this.id)
     spriteSheet.src = this.source[this.state].img[this.direction]
   }
 
@@ -71,30 +69,31 @@ class Sprite {
     }
   }
 
-  displayText = (contextText, frameWidth, scale, textWidth) => {
+  displayText = (contextText, frameWidth, scale, canvasText) => {
     if (this.activeMessage) {
-      let xRect = this.xPos + frameWidth * scale / 2 - 80
+      let xRect = this.xPos + frameWidth * scale / 2 - 110
       if (xRect < 0) xRect = 0
-      if (xRect > textWidth - 160) xRect = textWidth - 160
-      contextText.roundRect(xRect, 0, 160, 50, 10, this.xPos + frameWidth * scale / 2, textWidth)
-      contextText.font = '16px Consolas'
+      if (xRect > canvasText.width - 220) xRect = canvasText.width - 220
+      contextText.roundRect(xRect, 0, 220, canvasText.height - 5, 10, this.xPos + frameWidth * scale / 2, canvasText.width)
+      contextText.font = '20px Consolas'
       contextText.fillStyle = 'black'
       if (this.displayMessage.length <= 20) {
-        contextText.fillText(this.displayMessage, xRect + 5, 20)
+        contextText.fillText(this.displayMessage, xRect + 5, 25)
+      } else if (this.displayMessage.length <= 40) {
+        contextText.fillText(this.displayMessage.slice(0,20), xRect + 5, 25)
+        contextText.fillText(this.displayMessage.slice(20), xRect + 5, 50)
       } else {
-        contextText.fillText(this.displayMessage.slice(0,20), xRect + 5, 20)
-        contextText.fillText(this.displayMessage.slice(20), xRect + 5, 40)
+        contextText.fillText(this.displayMessage.slice(0,20), xRect + 5, 25)
+        contextText.fillText(this.displayMessage.slice(20, 40), xRect + 5, 50)
+        contextText.fillText(this.displayMessage.slice(40), xRect + 5, 75)
       }
     }
   }
 
   getMessage = (messageList) => {
-    console.log(`getMessage is running on ID: ${this.id}`)
     if (messageList.length) {
-      console.log("messageList has items:", messageList)
       this.activeMessage = true
       this.displayMessage = messageList.shift()
-      console.log("display message:", this.displayMessage)
     }
   }
 
@@ -136,9 +135,6 @@ let source2 = {
 
 let BlueWitch = new Sprite(1, source1, 633)
 let CrimsonWitch = new Sprite(2, source2, 1267)
-
-console.log("BLUE WITCH:", BlueWitch)
-console.log("CRIMSON WITCH:", CrimsonWitch)
 
 module.exports = {
   BlueWitch,

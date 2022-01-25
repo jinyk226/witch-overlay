@@ -1,5 +1,6 @@
 const { google } = require('googleapis')
 const youtube = google.youtube('v3')
+const { magenta, redBright } = require('chalk')
 const util = require('util')
 const fs = require('fs')
 const path = require('path')
@@ -10,24 +11,19 @@ const readFilePromise = util.promisify(fs.readFile)
 
 let liveChatId
 let nextPage
-const intervalTime = 5000
 let interval
-
-
 
 const save = async (path, data) => {
   await writeFilePromise(path, data)
-  console.log("Successfully saved!")
+  console.log(magenta("Successfully saved!"))
 }
 
 const read = async (path) => {
   const fileContents = await readFilePromise(path)
-  console.log("Successfully read!")
+  console.log(magenta("Successfully read!"))
   return JSON.parse(fileContents)
 }
 
-
-// const Oauth2 = google.auth.Oauth2
 const {clientID, clientSecret} = process.env
 const redirectURI = 'http://localhost:8000/api/youtube/callback'
 let auth = new google.auth.OAuth2(clientID, clientSecret, redirectURI)
@@ -56,23 +52,22 @@ youtubeService.getTokensWithCode = async (code) => {
 
 youtubeService.authorize = ({ tokens }) => {
   auth.setCredentials(tokens)
-  console.log("Successfully set credentials")
-  console.log("Tokens:", tokens)
-  save ('./tokens.json', JSON.stringify(tokens))
+  console.log(magenta("Successfully set credentials"))
+  save (path.normalize('../tokens.json'), JSON.stringify(tokens))
 }
 
 auth.on('tokens', (tokens) => {
-  console.log('new tokens received')
-  save('../../tokens.json', JSON.stringify(tokens))
+  console.log(magenta('new tokens received'))
+  save(path.normalize('../tokens.json'), JSON.stringify(tokens))
 })
 
 const checkTokens = async () => {
   const tokens = await read('./tokens.json')
   if (tokens) {
-    console.log('setting tokens')
+    console.log(magenta('setting tokens'))
     return auth.setCredentials(tokens)
   }
-  console.log('No tokens found')
+  console.log(redBright('No tokens found'))
 }
 
 youtubeService.findActiveChat = async () => {
@@ -83,7 +78,7 @@ youtubeService.findActiveChat = async () => {
   })
   const latestChat = res.data.items[0];
   liveChatId = latestChat.snippet.liveChatId
-  console.log('ChatId found:', liveChatId)
+  console.log(magenta('ChatId found!'))
 }
 
 youtubeService.retrieveChat = async () => {
@@ -95,10 +90,13 @@ youtubeService.retrieveChat = async () => {
   })
   const { data } = res
   const newMessages = data.items;
+  console.log(magenta('Chat retrieved successfully! Number of new messages:', newMessages.length))
+  if (!nextPage) {
+    nextPage = data.nextPageToken
+    console.log(redBright('No pageToken passed in; returning empty array'))
+    return []
+  }
   nextPage = data.nextPageToken
-  console.log('Next page:', nextPage)
-  console.log('Number of new messages:', newMessages.length)
-  console.log(newMessages[0])
   return newMessages
 }
 
