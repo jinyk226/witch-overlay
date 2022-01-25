@@ -2,6 +2,7 @@ const { google } = require('googleapis')
 const youtube = google.youtube('v3')
 const util = require('util')
 const fs = require('fs')
+const path = require('path')
 require('dotenv').config()
 
 const writeFilePromise = util.promisify(fs.writeFile)
