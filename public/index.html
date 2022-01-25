@@ -7,9 +7,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sprite test</title>
 </head>
-<body>
-  <div id='homepage'>
-    <h1>Filler text here</h1>
+<body id='homepage'>
+  <div id='nav-bar'>
+    <div>Dashboard</div>
+  </div>
+  <div class='main-body column'>
+    <div class='row padding'>
+      <div class='padding'>Authorize:</div>
+      <div class='padding'><a href="/api/youtube/auth" class="button">Authorize</a></div>
+    </div>
+    <div class='row padding'>
+      <div class='padding'>Get Livestream ID:</div>
+      <div class='padding'><a href="/api/youtube/find-active-chat" class="button">Find Active Chat</a></div>
+    </div>
+    <div class='row padding'>
+      <div class='padding'>Go to Witch Layout: </div>
+      <div class='padding'><a href="/witch-overlay" class="button">Witch Layout</a></div>
+    </div>
   </div>
 </body>
 </html>
