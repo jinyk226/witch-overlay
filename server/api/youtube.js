@@ -3,8 +3,7 @@ const youtubeService = require('./youtubeService')
 const path = require('path')
 
   router.get('/', (req, res) => {
-    // res.sendFile(path.join(__dirname, '../../public/index.html'))
-    res.redirect("../../")
+    res.redirect(path.normalize("../../"))
   })
 
   router.get('/auth', (req, res) => {

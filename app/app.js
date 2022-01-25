@@ -6,7 +6,7 @@ let context1Text = canvas1Text.getContext("2d")
 let canvas2 = document.getElementById("canvas-2")
 let context2 = canvas1.getContext("2d")
 let canvas2Text = document.getElementById("canvas-2-text")
-let context2Text = canvas1Text.getContext("2d")
+let context2Text = canvas2Text.getContext("2d")
 
 let { BlueWitch, CrimsonWitch, defaultSprite } = require('./spriteData')
 let { importRoundRect } = require('./canvasMethods')
@@ -20,15 +20,15 @@ let { frameWidth, frameHeight, scale } = defaultSprite
 
 // SET DEFAULT VALUES AND METHODS
 
-canvas1.width = 1900
+canvas1.width = 1920
 canvas1.height = 10 + frameHeight * scale
-canvas2.width = 1900
+canvas2.width = 1920
 canvas2.height = 10 + frameHeight * scale
 
-const textWidth = canvas1Text.width = 1900
-const textHeight = canvas1Text.height = 55
-canvas2Text.width = 1900
-canvas2Text.height = 55
+canvas1Text.width = 1920
+canvas1Text.height = 65
+canvas2Text.width = 1920
+canvas2Text.height = 65
 
 let spriteSheet1 = new Image()
 spriteSheet1.src = BlueWitch.source.idle.img.right
@@ -61,10 +61,10 @@ const startup = () => {
 function frame() {
   context1.clearRect(0, 0, canvas1.width, frameHeight)
   context2.clearRect(0, 0, canvas1.width, frameHeight)
-  context1Text.clearRect(0,0, textWidth, textHeight)
-  context2Text.clearRect(0,0, textWidth, textHeight)
-  BlueWitch.displayText(context1Text, frameWidth, scale, textWidth)
-  CrimsonWitch.displayText(context2Text, frameWidth, scale, textWidth)
+  context1Text.clearRect(0,0, canvas1Text.width, canvas1Text.height)
+  context2Text.clearRect(0,0, canvas2Text.width, canvas2Text.height)
+  BlueWitch.displayText(context1Text, frameWidth, scale, canvas1Text)
+  CrimsonWitch.displayText(context2Text, frameWidth, scale, canvas2Text)
   BlueWitch.animate(context1, spriteSheet1, frameWidth, frameHeight, scale, canvas1.width)
   CrimsonWitch.animate(context2, spriteSheet2, frameWidth, frameHeight, scale, canvas2.width)
   requestAnimationFrame(frame)
