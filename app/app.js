@@ -36,8 +36,8 @@ spriteSheet1.src = BlueWitch.source.idle.img.right
 let spriteSheet2 = new Image()
 spriteSheet2.src = CrimsonWitch.source.idle.img.right
 
-const startup = async () => {
-  setInterval(async() => {
+const startup = () => {
+  setInterval(() => {
     if (toggle) {
       fetchMessages(messageList, BlueWitch, !messageList.length)
     } else {
@@ -45,15 +45,17 @@ const startup = async () => {
     }
   }, 3000)
   messageList = []
-  setInterval(async() => {
+  setInterval(() => {
     if (toggle) {
-      await BlueWitch.getMessage(messageList)
+      BlueWitch.getMessage(messageList)
       toggle = false
     } else {
-      await CrimsonWitch.getMessage(messageList)
+      CrimsonWitch.getMessage(messageList)
       toggle = true
     }
   }, 3000)
+  setInterval(() => {BlueWitch.randomState(spriteSheet1)}, (Math.floor(Math.random())*2000 + 2000))
+  setInterval(() => {CrimsonWitch.randomState(spriteSheet2)}, (Math.floor(Math.random())*2000 + 2000))
 }
 
 function frame() {
@@ -67,9 +69,6 @@ function frame() {
   CrimsonWitch.animate(context2, spriteSheet2, frameWidth, frameHeight, scale, canvas2.width)
   requestAnimationFrame(frame)
 }
-
-setInterval(BlueWitch.randomState(spriteSheet1), (Math.floor(Math.random())*2000 + 2000))
-setInterval(CrimsonWitch.randomState(spriteSheet2), (Math.floor(Math.random())*2000 + 2000))
 importRoundRect()
 startup()
 frame()

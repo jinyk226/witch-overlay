@@ -24,10 +24,21 @@ class Sprite {
   }
 
   randomState = (spriteSheet) => {
+    console.log('RANDOM STATE IS RUNNING')
     this.xVel = Math.floor(Math.random() * 3) - 1
-    if (this.xVel > 0)     this.direction = 'right'; this.state = 'run'
-    if (this.xVel === 0)   i = 0; this.state = 'idle'
-    if (this.xVel < 0)     this.direction = 'left'; this.state = 'run'
+    if (this.xVel > 0)     {
+      this.direction = 'right'
+      this.state = 'run'
+    }
+    if (this.xVel === 0)   {
+      i = 0
+      this.state = 'idle'
+    }
+    if (this.xVel < 0)     {
+      this.direction = 'left'
+      this.state = 'run'
+    }
+    console.log("xVel:", this.xVel, "for ID:", this.id)
     spriteSheet.src = this.source[this.state].img[this.direction]
   }
 
