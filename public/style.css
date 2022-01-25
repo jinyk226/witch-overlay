@@ -6,13 +6,21 @@
   box-sizing:border-box;
 }
 
-div {
+.canvases-div {
+  position: relative;
+}
+
+.canvas-div {
   /* background: #EEE; */
   display: flex;
+  position: absolute;
   flex-direction: column;
   justify-content: flex-end;
-  border: solid 6px #AAA;
-  border-radius: 10px;
   width: 1920px;
   min-height: 300px;
+}
+
+#homepage {
+  background: #0B3954;
+  color: #BFD7EA;
 }

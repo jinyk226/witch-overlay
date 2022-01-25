@@ -4,7 +4,7 @@ const path = require('path')
 
   router.get('/', (req, res) => {
     // res.sendFile(path.join(__dirname, '../../public/index.html'))
-    res.send("Complete!")
+    res.redirect("../../")
   })
 
   router.get('/auth', (req, res) => {
